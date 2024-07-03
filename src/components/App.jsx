@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useCallback} from "react";
+import React, { useEffect, useState, useCallback, useMemo} from "react";
+
 
 export function App() {
     const [countdown, setCountdown] = useState(10);
@@ -15,11 +16,15 @@ export function App() {
         return () => clearTimeout(ref);
     }, [countdown, timeoutFunc]);
 
-    return (
-    <div>
-      <h1>Countdown</h1>
-      <p>{countdown}</p>
-      <progress value={countdown} min="0" max="10" />
-    </div>
-  );
+    const markup = useMemo(() => {
+        return (
+            <div>
+                <h1>Countdown</h1>
+                <p>{countdown}</p>
+                <progress value={countdown} min="0" max="10" />
+            </div>
+        );
+    }, [countdown]);
+
+    return markup;
 }
