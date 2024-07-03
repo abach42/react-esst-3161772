@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback} from "react";
 
 export function App() {
     const [countdown, setCountdown] = useState(10);
 
+    const timeoutFunc = useCallback(() => {
+        if(countdown > 0) {
+            setCountdown(countdown - 1);
+        }
+    }, [countdown]);
+
     useEffect(() => {
-        const ref = setTimeout(() => {
-            if(countdown > 0) {
-                setCountdown(countdown - 1);
-            }
-        }, 1000);
+        const ref = setTimeout(timeoutFunc, 1000);
         
         return () => clearTimeout(ref);
-    }, [countdown]);
+    }, [countdown, timeoutFunc]);
 
     return (
     <div>
