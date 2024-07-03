@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
 
 export function App() {
-  const [countdown, setCountdown] = useState(10);
-  useEffect(() => {
-    const ref = setTimeout(() => {
-      if (countdown > 0) {
-        setCountdown(countdown - 1);
-      }
-    }, 1000);
+    const [countdown, setCountdown] = useState(10);
 
-    return () => clearTimeout(ref);
-  }, [countdown]);
+    useEffect(() => {
+        const ref = setInterval(() => {
+            setCountdown((oldCountdownValue) => {
+                if(oldCountdownValue > 0) {
+                    return oldCountdownValue -1;
+                }
+                return 0;
+            });
+        }, 1000);
 
-  return (
+        return () => {
+            window.clearInterval(ref);
+        };
+    }, []);
+
+    return (
     <div>
       <h1>Countdown</h1>
       <p>{countdown}</p>
