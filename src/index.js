@@ -4,7 +4,7 @@ import { App } from './components/App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App title="test" name="foobar" />
   </React.StrictMode>,
   document.getElementById('root')
 );

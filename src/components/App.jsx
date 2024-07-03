@@ -2,6 +2,8 @@ import react from "react";
 
 export class App extends react.Component {
     render() {
-        return <div>Hallo Compontent</div>
+        console.log(this.props);
+        const { title, name } = this.props;
+        return <div title={title}>Hallo {name}</div>
     }
 }
