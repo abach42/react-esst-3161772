@@ -4,19 +4,14 @@ export function App() {
     const [countdown, setCountdown] = useState(10);
 
     useEffect(() => {
-        const ref = setInterval(() => {
-            setCountdown((oldCountdownValue) => {
-                if(oldCountdownValue > 0) {
-                    return oldCountdownValue -1;
-                }
-                return 0;
-            });
+        const ref = setTimeout(() => {
+            if(countdown > 0) {
+                setCountdown(countdown - 1);
+            }
         }, 1000);
-
-        return () => {
-            window.clearInterval(ref);
-        };
-    }, []);
+        
+        return () => clearTimeout(ref);
+    }, [countdown]);
 
     return (
     <div>
