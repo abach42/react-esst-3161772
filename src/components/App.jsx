@@ -14,7 +14,7 @@ export function App() {
         const ref = setTimeout(timeoutFunc, 1000);
         
         return () => clearTimeout(ref);
-    }, [countdown, timeoutFunc]);
+    }, [timeoutFunc]);
 
     const markup = useMemo(() => {
         return (
