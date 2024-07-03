@@ -44,13 +44,13 @@ export function App() {
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
-    if (started) {
-      const interval = setInterval(() => {
+    const interval = setInterval(() => {
+      if (started) {
         setTimePassedInMs((timePassedInMs) => timePassedInMs + .1);
-      }, .1);
+      }
+    }, .1);
 
-      return () => clearInterval(interval);
-    }
+    return () => clearInterval(interval);
   }, [started, timePassedInMs]);
 
   return (
