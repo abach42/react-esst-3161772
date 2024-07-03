@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 
 /**
  * Nutzen Sie diese Funktion um
@@ -40,17 +40,43 @@ export function App() {
   // Schritt 3: Startbutton
   // Schritt 4: Pausebutton
   // Schritt 5: Stopbutton
+  const [timePassedInMs, setTimePassedInMs] = useState(0);
+  const [started, setStarted] = useState(false);
 
-  const timePassedInMs = 10500; // 10,5 Sekunden
+  useEffect(() => {
+    if (started) {
+      const interval = setInterval(() => {
+        setTimePassedInMs((timePassedInMs) => timePassedInMs + .1);
+      }, .1);
+
+      return () => clearInterval(interval);
+    }
+  }, [started, timePassedInMs]);
 
   return (
     <div>
       <h1>Stoppuhr</h1>
-      <p>{formatTime(1, 2, 3, 4)}</p>
+      <p>{formatTime(...millisecondsToParts(timePassedInMs))}</p>
       <div>
-        <button type="button">Start</button>
-        <button type="button">Pause</button>
-        <button type="button">Stopp</button>
+        <button type="button" onClick={() => {
+          setStarted(true);
+        }}>
+          Start
+        </button>
+        <button type="button" onClick={() => {
+          setStarted(false);
+        }}>
+          Pause
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setStarted(false);
+            setTimePassedInMs(0);
+          }}
+        >
+          Stopp
+        </button>
       </div>
     </div>
   );
