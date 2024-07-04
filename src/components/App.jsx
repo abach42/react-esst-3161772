@@ -5,23 +5,38 @@ export function App() {
 
   const [xy, setXy] = useState({
     x: 0,
-    y: 0
+    y: 0,
   });
+
+  const reset = () => {
+    return {
+      x: 0,
+      y: 0,
+    };
+  };
 
   useEffect(() => {
     const mousemove = (event) => {
-        setXy(() => {
-          return {
-            x: event.offsetX,
-            y: event.offsetY
-          };
-        });
+      setXy(() => {
+        return {
+          x: event.offsetX,
+          y: event.offsetY,
+        };
+      });
     };
 
-    window.addEventListener('mousemove', mousemove);
+    const keyup = (event) => {
+      if (event.key === "Escape") {
+        setShowXy(false);
+        setXy(reset);
+      }
+    };
+
+    window.addEventListener("keyup", keyup);
+    window.addEventListener("mousemove", mousemove);
 
     return () => {
-      window.removeEventListener('mousemove', mousemove);
+      window.removeEventListener("mousemove", mousemove);
     };
   }, []);
 
@@ -33,18 +48,21 @@ export function App() {
           <strong>Y={xy.y}</strong>
         </p>
       );
-    };
+    }
   }, [showXy, xy]);
 
   const toggleShow = () => {
     setShowXy((showXy) => !showXy);
+    setXy(reset);
   };
 
   return (
     <div>
       <h1>XY-Viewer</h1>
 
-      <button onClick={toggleShow} type="button">On/Off</button>
+      <button onClick={toggleShow} type="button">
+        On/Off
+      </button>
 
       {xyView}
     </div>
