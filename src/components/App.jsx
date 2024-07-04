@@ -2,18 +2,10 @@ import React, { useMemo, useState, useEffect } from "react";
 
 export function App() {
   const [showXy, setShowXy] = useState(false);
-
   const [xy, setXy] = useState({
     x: 0,
     y: 0,
   });
-
-  const reset = () => {
-    return {
-      x: 0,
-      y: 0,
-    };
-  };
 
   useEffect(() => {
     const mousemove = (event) => {
@@ -36,6 +28,7 @@ export function App() {
     window.addEventListener("mousemove", mousemove);
 
     return () => {
+      window.removeEventListener("keyup", keyup);
       window.removeEventListener("mousemove", mousemove);
     };
   }, []);
@@ -51,8 +44,15 @@ export function App() {
     }
   }, [showXy, xy]);
 
+  const reset = () => {
+    return {
+      x: 0,
+      y: 0,
+    };
+  };
+
   const toggleShow = () => {
-    setShowXy((showXy) => !showXy);
+    setShowXy(!showXy);
     setXy(reset);
   };
 
