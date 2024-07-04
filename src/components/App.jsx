@@ -96,7 +96,7 @@ export function App() {
 
   const stopClicked = () => {
     if (timerRef !== null) {
-      clearInterfal(timerRef);
+      clearInterval(timerRef);
     }
 
     setState({
