@@ -1,28 +1,50 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 
 export function App() {
-  const showXy = false;
-  const x = 0;
-  const y = 0;
+  const [showXy, setShowXy] = useState(false);
+
+  const [xy, setXy] = useState({
+    x: 0,
+    y: 0
+  });
+
+  useEffect(() => {
+    const mousemove = (event) => {
+        setXy(() => {
+          return {
+            x: event.offsetX,
+            y: event.offsetY
+          };
+        });
+    };
+
+    window.addEventListener('mousemove', mousemove);
+
+    return () => {
+      window.removeEventListener('mousemove', mousemove);
+    };
+  }, []);
 
   const xyView = useMemo(() => {
     if (showXy) {
       return (
         <p>
-          <strong>X={x}</strong>
-          <strong>Y={y}</strong>
+          <strong>X={xy.x}</strong>
+          <strong>Y={xy.y}</strong>
         </p>
       );
-    }
+    };
+  }, [showXy, xy]);
 
-    return "";
-  }, [showXy, x, y]);
+  const toggleShow = () => {
+    setShowXy((showXy) => !showXy);
+  };
 
   return (
     <div>
       <h1>XY-Viewer</h1>
 
-      <button type="button">On/Off</button>
+      <button onClick={toggleShow} type="button">On/Off</button>
 
       {xyView}
     </div>
