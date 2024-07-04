@@ -94,7 +94,16 @@ export function App() {
     });
   };
 
-  const stopClicked = () => {};
+  const stopClicked = () => {
+    if (timerRef !== null) {
+      clearInterfal(timerRef);
+    }
+
+    setState({
+      isPaused: false,
+      timePassed: 0,
+    });
+  };
 
   return (
     <div>
