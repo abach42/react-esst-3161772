@@ -53,27 +53,33 @@ export function App() {
     return () => clearInterval(interval);
   }, [started, timePassedInMs]);
 
+  const start = () => {
+    setStarted(true);
+  }
+
+  const pause = () => {
+    setStarted(false);
+  }
+  
+  const stopped = () => {
+    setStarted((wasStarted) => wasStarted);
+    setTimePassedInMs(() => 0);
+  };
+
   return (
     <div>
       <h1>Stoppuhr</h1>
       <p>{formatTime(...millisecondsToParts(timePassedInMs))}</p>
       <div>
-        <button type="button" onClick={() => {
-          setStarted(true);
-        }}>
+        <button type="button" onClick={start}>
           Start
         </button>
-        <button type="button" onClick={() => {
-          setStarted(false);
-        }}>
+        <button type="button" onClick={pause}>
           Pause
         </button>
         <button
           type="button"
-          onClick={() => {
-            setStarted(false);
-            setTimePassedInMs(0);
-          }}
+          onClick={stopped}
         >
           Stopp
         </button>
