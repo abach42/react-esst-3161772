@@ -7,8 +7,7 @@ export function App() {
   const [birthdate, setBirthdate] = useState("");
   const [select, setSelect] = useState("");
 
-  const [isBirthdateRequired, setIsBirthdateRequired] = useState(true); // New state for required birthdate
-
+  const [isBirthdateRequired, setIsBirthdateRequired] = useState(true); 
   useEffect(() => {
     setIsBirthdateRequired(isShowDate);
     if (!isShowDate) {
@@ -86,7 +85,7 @@ export function App() {
                   type="date"
                   id="birthdate"
                   name="birthdate"
-                  required={isBirthdateRequired} // Use separate required state
+                  required={isBirthdateRequired} 
                   onInput={birthdateChanged}
                   value={birthdate}
                 />
