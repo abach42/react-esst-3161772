@@ -2,20 +2,19 @@ import React, { useState, useEffect } from "react";
 
 export function App() {
   const [formData, setFormData] = useState({});
-  const [showDate, setShowDate] = useState(true);
-
+  const [isShowDate, setIsShowDate] = useState(true);
   const [fullname, setFullname] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [select, setSelect] = useState("");
 
-  const [isChecked, setIsChecked] = useState(true);
+  const [isBirthdateRequired, setIsBirthdateRequired] = useState(true); // New state for required birthdate
 
   useEffect(() => {
-    setIsChecked(showDate);
-    if (!showDate) {
+    setIsBirthdateRequired(isShowDate);
+    if (!isShowDate) {
       setBirthdate("");
     }
-  }, [showDate]);
+  }, [isShowDate]);
 
   const formSubmitted = (submitEvent) => {
     submitEvent.preventDefault();
@@ -35,8 +34,8 @@ export function App() {
     setSelect(event.target.value);
   };
 
-  const checkHandler = () => {
-    setShowDate(!isChecked);
+  const showDateHandler = () => {
+    setIsShowDate(!isShowDate);
   };
 
   return (
@@ -73,11 +72,11 @@ export function App() {
                 type="checkbox"
                 name="toggleDate"
                 defaultChecked={true}
-                onChange={checkHandler}
+                onChange={showDateHandler}
               />
             </p>
 
-            {showDate && (
+            {isShowDate && (
               <p>
                 <label htmlFor="birthdate">
                   Geburtstag:
@@ -87,7 +86,7 @@ export function App() {
                   type="date"
                   id="birthdate"
                   name="birthdate"
-                  required={isChecked}
+                  required={isBirthdateRequired} // Use separate required state
                   onInput={birthdateChanged}
                   value={birthdate}
                 />
