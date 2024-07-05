@@ -56,7 +56,7 @@ export function App() {
                 id="fullname"
                 name="fullname"
                 placeholder="Ihr Name"
-                required={true}
+                required
                 value={fullname}
                 onInput={fullnameChanged}
               />
@@ -97,7 +97,7 @@ export function App() {
                 Select-Feld:
               </label>
               <br />
-              <select id="select" name="select" defaultValue="" required={true} onInput={selectChanged}>
+              <select id="select" name="select" defaultValue="" required onInput={selectChanged}>
                 <option value="" />
                 <option value="someOption">
                   Some option
