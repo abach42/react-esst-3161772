@@ -11,11 +11,11 @@ export function App() {
   const [isChecked, setIsChecked] = useState(true);
 
   useEffect(() => {
-    setShowDate(isChecked);
-    if (!isChecked) {
+    setIsChecked(showDate);
+    if (!showDate) {
       setBirthdate("");
     }
-  }, [isChecked]);
+  }, [showDate]);
 
   const formSubmitted = (submitEvent) => {
     submitEvent.preventDefault();
@@ -36,7 +36,7 @@ export function App() {
   };
 
   const checkHandler = () => {
-    setIsChecked(!isChecked);
+    setShowDate(!isChecked);
   };
 
   return (
