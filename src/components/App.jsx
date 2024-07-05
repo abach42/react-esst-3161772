@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export function App() {
   const [formData, setFormData] = useState({});
@@ -6,11 +6,21 @@ export function App() {
 
   const [fullname, setFullname] = useState("");
   const [birthdate, setBirthdate] = useState("");
+  const [select, setSelect] = useState("");
+
+  const [isChecked, setIsChecked] = useState(true);
+
+  useEffect(() => {
+    setShowDate(isChecked);
+    if (!isChecked) {
+      setBirthdate("");
+    }
+  }, [isChecked]);
 
   const formSubmitted = (submitEvent) => {
     submitEvent.preventDefault();
 
-    setFormData({ fullname, birthdate });
+    setFormData({ fullname, birthdate, select });
   };
 
   const fullnameChanged = (event) => {
@@ -19,6 +29,14 @@ export function App() {
 
   const birthdateChanged = (event) => {
     setBirthdate(event.target.value);
+  };
+
+  const selectChanged = (event) => {
+    setSelect(event.target.value);
+  };
+
+  const checkHandler = () => {
+    setIsChecked(!isChecked);
   };
 
   return (
@@ -40,8 +58,22 @@ export function App() {
                 id="fullname"
                 name="fullname"
                 placeholder="Ihr Name"
+                required={true}
                 value={fullname}
                 onInput={fullnameChanged}
+              />
+            </p>
+
+            <p>
+              <label htmlFor="toggleDate">
+                Toggle Date
+              </label>
+              <br />
+              <input
+                type="checkbox"
+                name="toggleDate"
+                defaultChecked={true}
+                onChange={checkHandler}
               />
             </p>
 
@@ -55,25 +87,27 @@ export function App() {
                   type="date"
                   id="birthdate"
                   name="birthdate"
+                  required={isChecked}
                   onInput={birthdateChanged}
                   value={birthdate}
                 />
               </p>
             )}
 
-            <button
-              type="button"
-              onClick={() => setShowDate(!showDate)}
-            >
-              Geburtstag an/aus
-            </button>
-
             <p>
               <label htmlFor="mySelect">
                 Select-Feld:
               </label>
               <br />
-              [Select]
+              <select id="select" name="select" defaultValue="" required={true} onInput={selectChanged}>
+                <option value="" />
+                <option value="someOption">
+                  Some option
+                </option>
+                <option value="otherOption">
+                  Other option
+                </option>
+              </select>
             </p>
 
             <p>
